@@ -4,6 +4,9 @@
 #  roles:
 #  - ../../galaxy/openshift-ansible-contrib/roles/openshift-pv-cleanup
 
+- pause:
+    prompt: "This playbook will delete a cluster. Continue if you are sure you want to this or abort the playbook if this is not your intent"
+
 - import_playbook: openstack/delete.yml
   when:
   - hosting_infrastructure == 'openstack'
