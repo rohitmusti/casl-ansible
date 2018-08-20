@@ -4,8 +4,19 @@
 #  roles:
 #  - ../../galaxy/openshift-ansible-contrib/roles/openshift-pv-cleanup
 
-- pause:
-    prompt: "This playbook will delete a cluster. Continue if you are sure you want to this or abort the playbook if this is not your intent"
+- vars_prompt:
+    name: "delete_cluster"
+    prompt: "Are you sure you want to delete the {{env_id}} cluster ] (yes/no)"
+    private: no
+  pre_tasks:
+      - name: "setting the delete_cluster fact"
+        set_fact:
+          delete_cluster: "delete_cluster"
+      - name: "setting up the fail module catch"
+        fail:
+          msg: "Abort task: delete {{env_id}} cluster"
+        when: delete_cluster == false
+
 
 - import_playbook: openstack/delete.yml
   when:
@@ -14,7 +25,7 @@
 - import_playbook: aws/delete.yml
   when:
   - hosting_infrastructure == 'aws'
-  
+
 - import_playbook: gcp/delete.yml
   when:
-  - hosting_infrastructure == 'gcp'  
+  - hosting_infrastructure == 'gcp'
