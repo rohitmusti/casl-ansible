@@ -11,7 +11,7 @@
   pre_tasks:
       - name: "setting the delete_cluster fact"
         set_fact:
-          delete_cluster: "delete_cluster"
+          delete_cluster: "{{ delete_cluster }}"
       - name: "setting up the fail module catch"
         fail:
           msg: "Abort task: delete {{env_id}} cluster"
