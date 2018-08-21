@@ -1,12 +1,6 @@
 ---
 
-#- hosts: seed-hosts
-#  roles:
-#  - ../../galaxy/openshift-ansible-contrib/roles/openshift-pv-cleanup
-
-
 - hosts: localhost
-  gather_facts: false
   tasks:
   - pause:
       prompt: "Are you sure you want to delete the {{env_id}} cluster ] (yes/no)"
@@ -20,16 +14,3 @@
       msg: "Abort task: delete {{env_id}} cluster"
     when:
       - delete_cluster | default('no') | bool
-
-
-- import_playbook: openstack/delete.yml
-  when:
-  - hosting_infrastructure == 'openstack'
-
-- import_playbook: aws/delete.yml
-  when:
-  - hosting_infrastructure == 'aws'
-
-- import_playbook: gcp/delete.yml
-  when:
-  - hosting_infrastructure == 'gcp'
