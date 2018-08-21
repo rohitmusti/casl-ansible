@@ -5,6 +5,7 @@
 #  - ../../galaxy/openshift-ansible-contrib/roles/openshift-pv-cleanup
 
 - hosts: localhost
+  gather_facts: no
   tasks:
   - pause:
       prompt: "Are you sure you want to delete the '{{ env_id }}' cluster (yes/no)"
