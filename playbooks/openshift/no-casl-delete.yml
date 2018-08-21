@@ -5,7 +5,6 @@
   - pause:
       prompt: "Are you sure you want to delete the {{env_id}} cluster (yes/no)"
     register: delete_cluster
-  # pre_tasks:
   - name: "setting the delete_cluster fact"
     set_fact:
       delete_cluster: "{{ delete_cluster }}"
